@@ -13,7 +13,7 @@ from ScriptWindow import ScriptWindow
 from OutputWindow import OutputWindow
 #from dataframe_viewer import DataFrameViewer
 #from pandasgui import show as DataFrameViewer
-from guipandas.widgets.dataframe_viewer import DataFrameViewer
+from dataframe_viewer import DataFrameViewer
 
 import pandas as pd
 

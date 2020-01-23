@@ -1,0 +1,3 @@
+{
+    "files": ["qt_mpl_bars.py","ScriptWindow.py","syntax.py","ViewerWindow.py","OutputWindow.py","dataframe_viewer.py","sakudzu.py","form.ui"]
+}
