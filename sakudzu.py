@@ -8,7 +8,8 @@ import xml.etree.ElementTree as ET
 from io import StringIO, BytesIO
 import syntax
 
-from ViewerWindow import ViewerWindow
+from FigureEditor import FigureEditor
+#from ViewerWindow import ViewerWindow
 from ScriptWindow import ScriptWindow
 from OutputWindow import OutputWindow
 #from dataframe_viewer import DataFrameViewer
@@ -16,6 +17,8 @@ from OutputWindow import OutputWindow
 from dataframe_viewer import DataFrameViewer
 
 import pandas as pd
+import matplotlib.pyplot as plt
+#import SakudzuCore
 
 def register_all_namespaces(filename):
     namespaces = dict([node for _, node in ET.iterparse(filename, events=['start-ns'])])
@@ -29,10 +32,16 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
-        self.item0 = BytesIO()
+
+        #self.core = SakudzuCore.SakudzuCore()
+        #self.fig = plt.figure()
+
+        #self.fig = SakudzuCore.MPLModel()
+        self.fig = plt.figure()
 
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
+
         bar = self.menuBar()
 
         file = bar.addMenu("File")
@@ -51,8 +60,8 @@ class MainWindow(QMainWindow):
         self.mdi.addSubWindow(self.script_window)
 
         MainWindow.count += 1
-        self.viewer_window = ViewerWindow()
-        self.mdi.addSubWindow(self.viewer_window)
+        self.figure_editor = FigureEditor(self.fig)
+        self.mdi.addSubWindow(self.figure_editor)
 
         #MainWindow.count += 1
         #self.spread_sheet = SpreadSheetWidget()
