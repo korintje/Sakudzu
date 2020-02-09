@@ -1,80 +1,148 @@
 # This Python file uses the following encoding: utf-8
-from PyQt5 import QtWidgets
 
+from PyQt5 import QtCore
 import matplotlib.pyplot as plt
+import pandas as pd
 
-class SakudzuCore():
+
+class Model():
+
     def __init__(self):
-        self.code = ""
-        self.const_code = ConstCode()
-        self.dataframe_code = DFCode()
-        self.matplotlib_code = MPLCode()
+        self.consts = []
+        self.dataframes = []
+        self.figures = []
 
-class ConstCode():
-    def __init__(self):
-        self.code = ""
-        self.const_dict = {}
-    #def temp_save(self):
+    def add_const(self):
+        const = {}
+        self.consts.append(const)
 
-class DFCode():
-    def __init__(self):
-        self.code = ""
-        self.dataframe_dict = {}
-    #def temp_save(self):
+    def add_dataframe(self):
+        dataframe = DataFrameModel()
+        self.dataframes.append(dataframe)
 
-
-class MPLModel():
-    def __init__(self):
-        self.fig = mpl.figure()
+    def add_figure(self):
+        fig = plt.figure()
+        self.figures.append(fig)
 
 
+class DataFrameModel(QtCore.QAbstractTableModel):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.df = pd.DataFrame()
+
+    def headerData(self, rowcol, orientation, role):
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole: return self.df.columns[rowcol] if orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole:
+            return self.df.index[rowcol]
+        else:
+            return None
+
+    def columnCount(self, parent=None):
+        return self.df.columns.size
+
+    def rowCount(self, parent=None):
+        return len(self.df)
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole or role == QtCore.Qt.ToolTipRole:
+            row = index.row()
+            col = index.column()
+            cell = self.df.iloc[row, col]
+
+            # NaN case
+            if pd.isnull(cell):
+                return ""
+
+            # Float formatting
+            if isinstance(cell, (float, np.floating)):
+                if not role == QtCore.Qt.ToolTipRole:
+                    return "{:.4f}".format(cell)
+
+            return str(cell)
+
+        elif role == QtCore.Qt.ToolTipRole:
+            row = index.row()
+            col = index.column()
+            cell = self.df.iloc[row, col]
+
+            # NaN case
+            if pd.isnull(cell):
+                return "NaN"
+
+            return str(cell)
+
+    def flags(self, index):
+        # Set the table to be editable
+        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+
+    # Set data in the DataFrame. Required if table is editable
+    def setData(self, index, value, role=None):
+        if role == QtCore.Qt.EditRole:
+            row = index.row()
+            col = index.column()
+            try:
+                self.df.iat[row, col] = value
+            except Exception as e:
+                print(e)
+                return False
+            self.dataChanged.emit(index, index)
+
+            return True
 """
-class MPLCode():
-    def __init__(self):
-        self.code = ""
-        self.prefix = ["fig = plt.figure()"]
-        self.sentences = []
-        self.axs_dict = {}
-        self.plots_dict = {}
-        self.scatter_list = []
+class HeaderModel(QtCore.QAbstractTableModel):
 
-    def add_scatter_plot(self, scatter_name, ax_name, x, y, s=None, c=None, marker=None, cmap=None, norm=None, vmin=None, vmax=None, alpha=None, linewidths=None, edgecolors=None, plotnonfinite=False, data=None):
-        self.plots_dict[scatter_name] = ScatterPlot(ax_name, x, y, s, c, marker, cmap, norm, vmin, vmax, alpha, linewidths, verts, edgecolors, plotnonfinite, data)
+    def __init__(self, df, orientation, parent=None):
+        super().__init__(parent)
+        self.df = df
+        self.orientation = orientation
 
-    def create_code(self, axs_dict, plots_dict, layout=[1,1]):
-        self.sentences = []
-        self.sentences += self.prefix
-        for ax in axs_dict.keys():
-            self.sentences.append("{ax_name} = fig.add_subplot({row}, {column}, {num}).".format(ax_name=ax, row=layout[0], column=layout[1], num=axs_dict[num]))
-        for plot in plots_dict.keys():
-            if plot.kind == "scatter":
-                sentence = "{plot_name} = {ax_name}.scatter({x}, {y}, {options})".format(plot_name=plot, ax_name=plot.ax_name, x=plot.x, y=plot.y)
-                for k, v in plot.options_dict.items():
-                    if v != None:
-                        sentence += "{key_name} = {key_value}".format(key_name=k, key_value=v)
-                self.sentences.append(sentence)
-        self.code = "\n".join(self.sentences)
-"""
+    def columnCount(self, parent=None):
+        if self.orientation == Qt.Horizontal:
+            return self.df.columns.shape[0]
+        else:  # Vertical
+            return self.df.index.nlevels
 
+    def rowCount(self, parent=None):
+        if self.orientation == Qt.Horizontal:
+            return self.df.columns.nlevels
+        elif self.orientation == Qt.Vertical:
+            return self.df.index.shape[0]
 
-"""
-class ScatterPlot():
-    def __init__(self, kind, ax_name, x, y, s, c, marker, cmap, norm, vmin, vmax, alpha, linewidths, edgecolors, plotnonfinite, data):
-        self.kind = "scatter"
-        self.ax_name = ax_name
-        self.x = x
-        self.y = y
-        self.s = s
-        self.c = c
-        self.marker = marker
-        self.cmap = cmap
-        self.norm = norm
-        self.vmin = vmin
-        self.vmax = vmax
-        self.alpha = alpha
-        self.linewidths = linewidths
-        self.edgecolors = edgecolors
-        self.plotnonfinite = plotnonfinite
-        self.data = data
-        self.options_dict = {"x": x, "c": c, "marker": marker, "cmap": cmap, "norm": norm, "vmin": vmin, "vmax": vmax, "alpha": alpha, "linewidths": linewidths, "edgecolors": edgecolors, "plotnonfinite": plotnonfinite, "data": data}
+    def data(self, index, role=None):
+        row = index.row()
+        col = index.column()
+
+        if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.ToolTipRole:
+
+            if self.orientation == Qt.Horizontal:
+
+                if type(self.df.columns) == pd.MultiIndex:
+                    return str(self.df.columns.values[col][row])
+                else:
+                    return str(self.df.columns.values[col])
+
+            elif self.orientation == Qt.Vertical:
+
+                if type(self.df.index) == pd.MultiIndex:
+                    return str(self.df.index.values[row][col])
+                else:
+                    return str(self.df.index.values[row])
+
+    # The headers of this table will show the level names of the MultiIndex
+    def headerData(self, section, orientation, role=None):
+        if role in [QtCore.Qt.DisplayRole, QtCore.Qt.ToolTipRole]:
+
+            if self.orientation == Qt.Horizontal and orientation == Qt.Vertical:
+                if type(self.df.columns) == pd.MultiIndex:
+                    return str(self.df.columns.names[section])
+                else:
+                    return str(self.df.columns.name)
+            elif self.orientation == Qt.Vertical and orientation == Qt.Horizontal:
+                if type(self.df.index) == pd.MultiIndex:
+                    return str(self.df.index.names[section])
+                else:
+                    return str(self.df.index.name)
+            else:
+                return None  # These cells should be hidden anyways
+
 """

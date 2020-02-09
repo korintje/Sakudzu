@@ -9,16 +9,12 @@ from io import StringIO, BytesIO
 import syntax
 
 from FigureEditor import FigureEditor
-#from ViewerWindow import ViewerWindow
 from ScriptWindow import ScriptWindow
 from OutputWindow import OutputWindow
-#from dataframe_viewer import DataFrameViewer
-#from pandasgui import show as DataFrameViewer
 from dataframe_viewer import DataFrameViewer
 
 import pandas as pd
 import matplotlib.pyplot as plt
-#import SakudzuCore
 
 def register_all_namespaces(filename):
     namespaces = dict([node for _, node in ET.iterparse(filename, events=['start-ns'])])
@@ -26,18 +22,23 @@ def register_all_namespaces(filename):
         ET.register_namespace(ns, namespaces[ns])
 
 class MainWindow(QMainWindow):
+
+    # create class variables
     count = 0
     linecount = 0
     maxLine = 100
 
     def __init__(self, parent = None):
+
+        # initialize the instance
         super(MainWindow, self).__init__(parent)
 
-        #self.core = SakudzuCore.SakudzuCore()
-        #self.fig = plt.figure()
-
-        #self.fig = SakudzuCore.MPLModel()
+        # create Sakudzu model
         self.fig = plt.figure()
+
+        # create pandas model
+
+        # create variable model
 
         self.mdi = QMdiArea()
         self.setCentralWidget(self.mdi)
@@ -49,7 +50,7 @@ class MainWindow(QMainWindow):
         file.addAction("cascade")
         file.addAction("Tiled")
         file.triggered[QAction].connect(self.windowaction)
-        self.setWindowTitle("Camphor")
+        self.setWindowTitle("Sakudzu")
 
         MainWindow.count += 1
         self.output_window = OutputWindow()
@@ -62,10 +63,6 @@ class MainWindow(QMainWindow):
         MainWindow.count += 1
         self.figure_editor = FigureEditor(self.fig)
         self.mdi.addSubWindow(self.figure_editor)
-
-        #MainWindow.count += 1
-        #self.spread_sheet = SpreadSheetWidget()
-        #self.mdi.addSubWindow(self.spread_sheet)
 
         headers = ["000", "001", "002"]
         tableData0 = [

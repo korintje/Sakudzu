@@ -31,75 +31,79 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="HL_marker_size">
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="label_marker_size">
            <property name="text">
             <string>Size</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+          <widget class="QDoubleSpinBox" name="SBox_marker_size">
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <layout class="QHBoxLayout" name="HL_marker_color">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="label_marker_color">
            <property name="text">
             <string>Color</string>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_2">
+          <layout class="QGridLayout" name="GL_marker_color">
            <item row="2" column="0">
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="label_marker_B">
              <property name="text">
               <string>B:</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="label_marker_R">
              <property name="text">
               <string>R:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="label_marker_G">
              <property name="text">
               <string>G:</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+            <widget class="QDoubleSpinBox" name="SBox_marker_R"/>
            </item>
            <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+            <widget class="QDoubleSpinBox" name="SBox_marker_G"/>
            </item>
            <item row="2" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+            <widget class="QDoubleSpinBox" name="SBox_marker_B"/>
            </item>
           </layout>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="HL_marker_alpha">
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="label_marker_alpha">
            <property name="text">
             <string>Transparency</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+          <widget class="QDoubleSpinBox" name="SBox_marker_alpha"/>
          </item>
         </layout>
        </item>
@@ -111,75 +115,75 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <layout class="QHBoxLayout" name="HL_edge_size">
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="label_edge_width">
            <property name="text">
             <string>Width</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="doubleSpinBox_6"/>
+          <widget class="QDoubleSpinBox" name="SBox_edge_width"/>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <layout class="QHBoxLayout" name="HL_edge_color">
          <item>
-          <widget class="QLabel" name="label_8">
+          <widget class="QLabel" name="label_edge_color">
            <property name="text">
             <string>Color</string>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_3">
+          <layout class="QGridLayout" name="GL_edge_color">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="label_edge_R">
              <property name="text">
               <string>R:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
+            <widget class="QLabel" name="label_edge_G">
              <property name="text">
               <string>G:</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
+            <widget class="QLabel" name="label_edge_B">
              <property name="text">
               <string>B:</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_8"/>
+            <widget class="QDoubleSpinBox" name="SBox_edge_R"/>
            </item>
            <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_9"/>
+            <widget class="QDoubleSpinBox" name="SBox_edge_G"/>
            </item>
            <item row="2" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_10"/>
+            <widget class="QDoubleSpinBox" name="SBox_edge_B"/>
            </item>
           </layout>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <layout class="QHBoxLayout" name="HL_edge_alpha">
          <item>
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="label_edge_alpha">
            <property name="text">
             <string>Transparency</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="doubleSpinBox_7"/>
+          <widget class="QDoubleSpinBox" name="SBox_edge_alpha"/>
          </item>
         </layout>
        </item>

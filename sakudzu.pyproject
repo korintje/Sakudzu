@@ -1,3 +1,3 @@
 {
-    "files": ["ScatterSettingsUI.py", "SakudzuCore.py","OutputWindow.py","FigureEditor.py","FigureEditorUI.ui","ScriptExecutor.py","qt_mpl_bars.py","ScriptWindow.py","FigureEditorForm.ui","dataframe_viewer.py","sakudzu.py","ScatterSettingsUI.ui","syntax.py","ViewerWindow.py","FigureEditorUI_old.py","FigureEditorUI.py"]
+    "files": ["SakudzuCore.py","OutputWindow.py","FigureEditor.py","FigureEditorUI.ui","ScriptExecutor.py","ScriptWindow.py","dataframe_viewer.py","sakudzu.py","ScatterSettingsUI.ui","syntax.py","CommonFunctions.py","ScatterSettingsUI.py","FigureEditorUI.py","DataFrameEditor.py"]
 }
